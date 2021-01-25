@@ -43,6 +43,52 @@ public abstract class GenericDAO<T extends Serializable> {
         return entities;
     }
 
+    public long count(){
+        EntityManager manager = getEntityManager();
+        manager.getTransaction().begin();
+
+        Query query = manager.createQuery("select count(c) from " + aClass.getSimpleName()+"c");
+
+        long count = (Long) query.getSingleResult();
+        manager.getTransaction().commit();
+        manager.close();
+        return count;
+    }
+
+    public T findOne(String jpql, Object...params){
+        EntityManager manager = getEntityManager();
+        manager.getTransaction().begin();
+
+        Query query = manager.createQuery(jpql);
+
+        for (int i = 0; i < params.length; i++){
+            query.setParameter(i+1, params);
+        }
+        T entity = (T) query.getSingleResult();
+        manager.getTransaction().commit();
+        manager.close();
+
+        return entity;
+
+    }
+
+    public List<T> find(String jpql, Object...params){
+        EntityManager manager = getEntityManager();
+        manager.getTransaction().begin();
+
+        Query query = manager.createQuery(jpql);
+
+        for (int i = 0; i < params.length; i++){
+            query.setParameter(i+1, params);
+        }
+        List<T> entities = query.getResultList();
+        manager.getTransaction().commit();
+        manager.close();
+
+        return entities;
+
+    }
+
     public void save(T entity){
         EntityManager manager = getEntityManager();
         manager.getTransaction().begin();
