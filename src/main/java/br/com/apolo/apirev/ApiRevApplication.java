@@ -1,4 +1,4 @@
-package br.com.apolo.apirev;
+/*package br.com.apolo.apirev;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,4 +10,4 @@ public class ApiRevApplication {
 		SpringApplication.run(ApiRevApplication.class, args);
 	}
 
-}
+}*/
